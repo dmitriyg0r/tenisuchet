@@ -42,16 +42,27 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #007BFF;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        button:hover {
+        .dima-button {
+            background-color: #007BFF;
+        }
+        .dima-button:hover {
             background-color: #0056b3;
         }
-        button:active {
+        .dima-button:active {
             background-color: #004085;
+        }
+        .denis-button {
+            background-color: #28a745;
+        }
+        .denis-button:hover {
+            background-color: #218838;
+        }
+        .denis-button:active {
+            background-color: #1e7e34;
         }
         .reset-button {
             background-color: #dc3545;
@@ -81,13 +92,13 @@
         <div class="score" id="denis-score">Денис: 0</div>
     </div>
     <div class="button-container">
-        <button onclick="addPoint('dima')">Добавить очко Диме</button>
-        <button onclick="addPoint('denis')">Добавить очко Денису</button>
+        <button class="dima-button" onclick="addPoint('dima')">Добавить очко Диме</button>
+        <button class="denis-button" onclick="addPoint('denis')">Добавить очко Денису</button>
     </div>
     <button class="reset-button" onclick="resetScores()">Сбросить очки</button>
     <div class="games-container">
-        <div class="games" id="dima-games">Выигранные партии Дима: 0</div>
-        <div class="games" id="denis-games">Выигранные партии Денис: 0</div>
+        <div class="games" id="dima-games">партии Дима 0</div>
+        <div class="games" id="denis-games">партии Денис 0</div>
     </div>
 
     <!-- Звук победы -->
@@ -110,11 +121,11 @@
         }
         if (localStorage.getItem('dimaGames')) {
             dimaGames = parseInt(localStorage.getItem('dimaGames'));
-            document.getElementById('dima-games').innerText = `партии Дима: ${dimaGames}`;
+            document.getElementById('dima-games').innerText = `партии Дима \n ${dimaGames}`;
         }
         if (localStorage.getItem('denisGames')) {
             denisGames = parseInt(localStorage.getItem('denisGames'));
-            document.getElementById('denis-games').innerText = `партии Денис: ${denisGames}`;
+            document.getElementById('denis-games').innerText = `партии Денис \n ${denisGames}`;
         }
 
         function addPoint(player) {
@@ -124,7 +135,7 @@
                 localStorage.setItem('dimaScore', dimaScore);
                 if (dimaScore >= 11) {
                     dimaGames++;
-                    document.getElementById('dima-games').innerText = `партии Дима: ${dimaGames}`;
+                    document.getElementById('dima-games').innerText = `партии Дима \n ${dimaGames}`;
                     localStorage.setItem('dimaGames', dimaGames);
                     playVictorySound();
                     resetScores();
@@ -135,7 +146,7 @@
                 localStorage.setItem('denisScore', denisScore);
                 if (denisScore >= 11) {
                     denisGames++;
-                    document.getElementById('denis-games').innerText = `партии Денис: ${denisGames}`;
+                    document.getElementById('denis-games').innerText = `партии Денис \n ${denisGames}`;
                     localStorage.setItem('denisGames', denisGames);
                     playVictorySound();
                     resetScores();
