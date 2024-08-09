@@ -4,76 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Теннисный Счёт</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .score-container, .games-container, .button-container {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
-        .score, .games {
-            font-size: 2.5em;
-            margin: 0 20px;
-            color: #555;
-        }
-        .parts {
-            font-size: 2.5em;
-            margin: 40px 20px 0;
-            color: #555;
-        }
-        button {
-            font-size: 1.5em;
-            margin: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .dima-button {
-            background-color: #007BFF;
-        }
-        .dima-button:hover {
-            background-color: #0056b3;
-        }
-        .dima-button:active {
-            background-color: #004085;
-        }
-        .denis-button {
-            background-color: #28a745;
-        }
-        .denis-button:hover {
-            background-color: #218838;
-        }
-        .denis-button:active {
-            background-color: #1e7e34;
-        }
-        .reset-button {
-            background-color: #dc3545;
-        }
-        .reset-button:hover {
-            background-color: #b02a37;
-        }
-        .reset-button:active {
-            background-color: #852029;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Теннисный Счёт</h1>
@@ -91,76 +22,10 @@
         <div class="games" id="dima-games">партии Дима: 0</div>
         <div class="games" id="denis-games">партии Денис: 0</div>
     </div>
-
+    <script src="script.js"></script>
     <!-- Звук победы -->
     <audio id="victorySound" src="victory_6.mp3" preload="auto"></audio>
-
-    <script>
-        const dimaScoreElement = document.getElementById('dima-score');
-        const denisScoreElement = document.getElementById('denis-score');
-        const dimaGamesElement = document.getElementById('dima-games');
-        const denisGamesElement = document.getElementById('denis-games');
-
-        let dimaScore = 0;
-        let denisScore = 0;
-        let dimaGames = 0;
-        let denisGames = 0;
-
-        // Проверяем localStorage при загрузке страницы
-        dimaScore = parseInt(localStorage.getItem('dimaScore')) || 0;
-        denisScore = parseInt(localStorage.getItem('denisScore')) || 0;
-        dimaGames = parseInt(localStorage.getItem('dimaGames')) || 0;
-        denisGames = parseInt(localStorage.getItem('denisGames')) || 0;
-
-        updateScoreDisplay();
-        updateGamesDisplay();
-
-        function addPoint(player) {
-            if (player === 'dima') {
-                dimaScore++;
-                dimaScoreElement.innerText = `Дима: ${dimaScore}`;
-                localStorage.setItem('dimaScore', dimaScore);
-                if (dimaScore >= 11) {
-                    dimaGames++;
-                    localStorage.setItem('dimaGames', dimaGames);
-                    playVictorySound();
-                    resetScores();
-                }
-            } else if (player === 'denis') {
-                denisScore++;
-                denisScoreElement.innerText = `Денис: ${denisScore}`;
-                localStorage.setItem('denisScore', denisScore);
-                if (denisScore >= 11) {
-                    denisGames++;
-                    localStorage.setItem('denisGames', denisGames);
-                    playVictorySound();
-                    resetScores();
-                }
-            }
-        }
-
-        function resetScores() {
-            dimaScore = 0;
-            denisScore = 0;
-            localStorage.removeItem('dimaScore');
-            localStorage.removeItem('denisScore');
-            updateScoreDisplay();
-            updateGamesDisplay();
-        }
-
-        function playVictorySound() {
-            document.getElementById('victorySound').play();
-        }
-
-        function updateScoreDisplay() {
-            dimaScoreElement.innerText = `Дима: ${dimaScore}`;
-            denisScoreElement.innerText = `Денис: ${denisScore}`;
-        }
-
-        function updateGamesDisplay() {
-            dimaGamesElement.innerText = `Дима \n ${dimaGames}`;
-            denisGamesElement.innerText = `Денис \n ${denisGames}`;
-        }
-    </script>
+    <!--Звук подачи-->
+    <audio id="changeServerSound" src="smena.mp3"></audio>
 </body>
 </html>
