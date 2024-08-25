@@ -7,21 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Теннисный Счёт</h1>
-    <div class="score-container">
-        <div class="score" id="dima-score">Дима: 0</div>
-        <div class="score" id="denis-score">Денис: 0</div>
-    </div>
-    <div class="button-container">
-        <button class="dima-button" onclick="addPoint('dima')">Добавить очко Диме</button>
-        <button class="denis-button" onclick="addPoint('denis')">Добавить очко Денису</button>
-    </div>
-    <button class="reset-button" onclick="resetScores()">Сбросить очки</button>
-    <div class="parts">партии</div>
-    <div class="games-container">
-        <div class="games" id="dima-games">партии Дима: 0</div>
-        <div class="games" id="denis-games">партии Денис: 0</div>
-    </div>
+    <header>
+        <h1>Теннисный Счёт</h1>
+    </header>
+    <main>
+        <section class="score-container">
+            <div class="score" id="dima-score" aria-label="Дима: 0">Дима: 0</div>
+            <div class="score" id="denis-score" aria-label="Денис: 0">Денис: 0</div>
+        </section>
+        <section class="button-container">
+            <button class="dima-button" onclick="addPoint('dima')" aria-label="Добавить очко Диме">Добавить очко Диме</button>
+            <button class="denis-button" onclick="addPoint('denis')" aria-label="Добавить очко Денису">Добавить очко Денису</button>
+        </section>
+        <button class="reset-button" onclick="resetScores()" aria-label="Сбросить очки">Сбросить очки</button>
+        <section class="parts">партии</section>
+        <section class="games-container">
+            <div class="games" id="dima-games" aria-label="партии Дима: 0">партии Дима: 0</div>
+            <div class="games" id="denis-games" aria-label="партии Денис: 0">партии Денис: 0</div>
+        </section>
+    </main>
     <script src="script.js"></script>
     <!-- Звук победы -->
     <audio id="victorySound" src="victory_6.mp3" preload="auto"></audio>

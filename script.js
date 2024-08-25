@@ -1,82 +1,94 @@
+// Получаем элементы
 const dimaScoreElement = document.getElementById('dima-score');
 const denisScoreElement = document.getElementById('denis-score');
 const dimaGamesElement = document.getElementById('dima-games');
 const denisGamesElement = document.getElementById('denis-games');
 
-let dimaScore = 0;
-let denisScore = 0;
-let dimaGames = 0;
-let denisGames = 0;
+// Инициализируем счета и игры
+let scores = {
+  dima: 0,
+  denis: 0
+};
 
-// Проверяем localStorage при загрузке страницы
-dimaScore = parseInt(localStorage.getItem('dimaScore')) || 0;
-denisScore = parseInt(localStorage.getItem('denisScore')) || 0;
-dimaGames = parseInt(localStorage.getItem('dimaGames')) || 0;
-denisGames = parseInt(localStorage.getItem('denisGames')) || 0;
+let games = {
+  dima: 0,
+  denis: 0
+};
 
+// Загружаем счета и игры из localStorage
+loadFromStorage();
+
+// Обновляем отображение
 updateScoreDisplay();
 updateGamesDisplay();
 
+// Функция добавления очка игроку
 function addPoint(player) {
-    if (player === 'dima') {
-        dimaScore++;
-        localStorage.setItem('dimaScore', dimaScore);
-    } else if (player === 'denis') {
-        denisScore++;
-        localStorage.setItem('denisScore', denisScore);
-    }
+  scores[player]++;
+  localStorage.setItem(`${player}Score`, scores[player]);
 
-    updateScoreDisplay();
-    speakScore();
+  updateScoreDisplay();
+  speakScore();
 
-    // Проверка на кратность 5
-    if ((dimaScore + denisScore) % 5 === 0) {
-        playChangeServerSound();
-    }
+  // Проверяем, является ли общий счет кратным 5
+  if ((scores.dima + scores.denis) % 5 === 0) {
+    playChangeServerSound();
+  }
 
-    // Проверка на победу
-    if (dimaScore >= 11 && dimaScore - denisScore >= 2) {
-        dimaGames++;
-        localStorage.setItem('dimaGames', dimaGames);
-        playVictorySound();
-        resetScores();
-    } else if (denisScore >= 11 && denisScore - dimaScore >= 2) {
-        denisGames++;
-        localStorage.setItem('denisGames', denisGames);
-        playVictorySound();
-        resetScores();
-    }
+  // Проверяем условия победы
+  if (scores[player] >= 11 && Math.abs(scores.dima - scores.denis) >= 2) {
+    games[player]++;
+    localStorage.setItem(`${player}Games`, games[player]);
+    playVictorySound();
+    resetScores();
+  }
 }
 
+// Функция проигрывания звука смены сервера
 function playChangeServerSound() {
-    document.getElementById('changeServerSound').play();
+  document.getElementById('changeServerSound').play();
 }
 
+// Функция сброса счетов
 function resetScores() {
-    dimaScore = 0;
-    denisScore = 0;
-    localStorage.removeItem('dimaScore');
-    localStorage.removeItem('denisScore');
-    updateScoreDisplay();
-    updateGamesDisplay();
+  scores = {
+    dima: 0,
+    denis: 0
+  };
+  localStorage.removeItem('dimaScore');
+  localStorage.removeItem('denisScore');
+  updateScoreDisplay();
+  updateGamesDisplay();
 }
 
+// Функция проигрывания звука победы
 function playVictorySound() {
-    document.getElementById('victorySound').play();
+  document.getElementById('victorySound').play();
 }
 
+// Функция обновления отображения счета
 function updateScoreDisplay() {
-    dimaScoreElement.innerText = `Дима: ${dimaScore}`;
-    denisScoreElement.innerText = `Денис: ${denisScore}`;
+  dimaScoreElement.innerText = `Дима: ${scores.dima}`;
+  denisScoreElement.innerText = `Денис: ${scores.denis}`;
 }
 
+// Функция обновления отображения игр
 function updateGamesDisplay() {
-    dimaGamesElement.innerText = `Дима \n ${dimaGames}`;
-    denisGamesElement.innerText = `Денис \n ${denisGames}`;
+  dimaGamesElement.innerText = `Дима \n ${games.dima}`;
+  denisGamesElement.innerText = `Денис \n ${games.denis}`;
 }
 
+// Функция озвучивания счета
 function speakScore() {
-    const text = `Дима: ${dimaScore}, Денис: ${denisScore}`;
-    const utterance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(utterance);
+  const text = `Дима: ${scores.dima}, Денис: ${scores.denis}`;
+  const utterance = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(utterance);
+}
+
+// Функция загрузки счетов и игр из localStorage
+function loadFromStorage() {
+  scores.dima = parseInt(localStorage.getItem('dimaScore')) || 0;
+  scores.denis = parseInt(localStorage.getItem('denisScore')) || 0;
+  games.dima = parseInt(localStorage.getItem('dimaGames')) || 0;
+  games.denis = parseInt(localStorage.getItem('denisGames')) || 0;
 }

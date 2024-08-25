@@ -1,6 +1,16 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #28a745;
+    --accent-color: #dc3545;
+    --background-color: #f0f0f0;
+    --font-family: 'Open Sans', sans-serif;
+    --font-size: 18px;
+    --line-height: 1.5;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
     text-align: center;
     margin: 0;
     padding: 0;
@@ -9,27 +19,38 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
-h1 {
+  }
+  
+  h1 {
     color: #333;
     margin-bottom: 20px;
-}
-.score-container, .games-container, .button-container {
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .score-container, .games-container, .button-container {
     display: flex;
     justify-content: center;
-    margin: 10px 0;
-}
-.score, .games {
+    margin: 20px 0;
+    gap: 20px; /* добавьте whitespace между элементами */
+  }
+  
+  .score, .games {
     font-size: 2.5em;
     margin: 0 20px;
     color: #555;
-}
-.parts {
+    font-weight: bold;
+  }
+  
+  .parts {
     font-size: 2.5em;
     margin: 40px 20px 0;
     color: #555;
-}
-button {
+    font-weight: bold;
+  }
+  
+  button {
     font-size: 1.5em;
     margin: 10px;
     padding: 10px 20px;
@@ -38,31 +59,41 @@ button {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-.dima-button {
-    background-color: #007BFF;
-}
-.dima-button:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* добавьте тень */
+  }
+  
+  .dima-button {
+    background-color: var(--primary-color);
+  }
+  
+  .dima-button:hover {
     background-color: #0056b3;
-}
-.dima-button:active {
+  }
+  
+  .dima-button:active {
     background-color: #004085;
-}
-.denis-button {
-    background-color: #28a745;
-}
-.denis-button:hover {
+  }
+  
+  .denis-button {
+    background-color: var(--secondary-color);
+  }
+  
+  .denis-button:hover {
     background-color: #218838;
-}
-.denis-button:active {
+  }
+  
+  .denis-button:active {
     background-color: #1e7e34;
-}
-.reset-button {
-    background-color: #dc3545;
-}
-.reset-button:hover {
+  }
+  
+  .reset-button {
+    background-color: var(--accent-color);
+  }
+  
+  .reset-button:hover {
     background-color: #b02a37;
-}
-.reset-button:active {
+  }
+  
+  .reset-button:active {
     background-color: #852029;
-}
+  }
